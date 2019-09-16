@@ -18,17 +18,6 @@
 				
 			}, options );
 			
-			// methods to be used outside of the plugin
-			// this.extend({
-			$.fn.extend({
-				changeName: function(name) {
-					set.patternnum = patternnum;
-				},
-				getName: function() {
-				 return set.patternnum;   
-				}
-			});
-
 			return this.each(function() {
 				// Plugin code would go here...
 				var e = $(this);
