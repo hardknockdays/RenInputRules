@@ -1,36 +1,99 @@
 # RenInputRules
-regex, patter, etc
 
-### Usage
+jQuery plugin untuk mengatur **regex**, **pattern**, dan **rules input** di elemen form.  
+Plugin ini memudahkan untuk membatasi input agar sesuai dengan kebutuhan (misalnya hanya angka, hanya teks dengan karakter tertentu, atau input dengan plugin autocomplete).
 
-In its simple case, RenInputRules can be initialised with a single line of Javascript:
+---
+
+## 📦 Instalasi
+
+Tambahkan file plugin setelah **jQuery**:
+
+```html
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="jquery.RenInputRules.js"></script>
 ```
+
+---
+
+## 🚀 Usage
+
+Inisialisasi sederhana:
+
+```javascript
 $('input').RenInputRules();
 ```
 
-While configuration parameter be passed in to RenInputRules to have it perform certain actions by using a configuration object as the parameter passed in to the RenInputRules constructor. For example:
-```
+Menggunakan konfigurasi:
+
+```javascript
 $('input').RenInputRules({
-  patnnumstat		: false,
-  patntextstat	: false
+  patnnumstat  : true,   // aktifkan pattern number pada input[type=number]
+  patntextstat : true    // aktifkan pattern text pada input[type=text]
 });
 ```
-will add pattern number properties into input type number and pattern text properties for input type text. And also the other configuration are below : 
-```
-patnnum 		: '[0-9.]',
-patntext		: '[a-zA-Z0-9!/.-\s_].{0,}',
-```
-the configuration above set by default, you can change the pattern and it will added into input attributes.
 
+Contoh di atas akan menambahkan attribute `pattern` otomatis pada input number dan text.
+
+---
+
+## ⚙️ Configuration
+
+Berikut daftar konfigurasi yang tersedia (dengan default value):
+
+```javascript
+{
+  patnnumstat   : false, // aktifkan pattern number
+  patntextstat  : false, // aktifkan pattern text
+
+  patnnum       : '^[0-9]*\.?[0-9]*$',      // regex pattern untuk angka (integer/decimal)
+  patntext      : '^[a-zA-Z0-9!/\.\-\s_]+$', // regex pattern untuk text
+
+  regexnum      : /[^0-9.]/g,                // hanya izinkan angka + titik
+  regexdef      : /[^a-zA-Z0-9().|\/!._\-\s]/g, // default allowed text
+  regexcustoms  : /[^a-zA-Z0-9.]/g           // untuk input dengan class easy-autocomplete
+}
 ```
-regexnum		: /^[0-9]+\.[0-9][0-9][0-9]/gi, //for number
+
+---
+
+## 📝 Contoh Penggunaan
+
+### 1. Input Number
+```html
+<input type="number" id="price" placeholder="Only numbers">
+<script>
+  $('#price').RenInputRules({ patnnumstat: true });
+</script>
 ```
-the configuration above set by default, and use for input type number, it will replace all input into "" (blank), except number.
+
+### 2. Input Text
+```html
+<input type="text" id="username" placeholder="Alphanumeric only">
+<script>
+  $('#username').RenInputRules({ patntextstat: true });
+</script>
 ```
-regexdef		: /[^a-zA-Z0-9().|\/!-\s_]/gi, // for all input
+
+### 3. Input dengan EasyAutocomplete
+```html
+<input type="text" class="easy-autocomplete" id="search">
+<script>
+  $('#search').RenInputRules();
+</script>
 ```
-the configuration above set by default, and use for input type text.
-```
-regexcustoms	: /[^a-zA-Z0-9.]/gi, // for customs class
-```
-the configuration above set by default, and use for input type text that have easy-autocomplete class.
+
+---
+
+## 🔒 Fitur Utama
+
+- Auto replace karakter invalid saat `input`, `keypress`, atau `keyup`
+- Support input `type="number"` (blokir leading zero untuk integer)
+- Support input text biasa dan dengan plugin **easy-autocomplete**
+- Bisa custom regex sesuai kebutuhan
+- Bisa menambahkan atribut `pattern` otomatis
+
+---
+
+## 📄 Lisensi
+MIT License © 2025
