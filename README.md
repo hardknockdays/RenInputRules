@@ -1,99 +1,121 @@
-# RenInputRules
 
-jQuery plugin untuk mengatur **regex**, **pattern**, dan **rules input** di elemen form.  
-Plugin ini memudahkan untuk membatasi input agar sesuai dengan kebutuhan (misalnya hanya angka, hanya teks dengan karakter tertentu, atau input dengan plugin autocomplete).
+# 🧩 jQuery RenInputRules v3 (ES6)
+
+Plugin jQuery ringan untuk validasi dan formatting input teks secara otomatis.  
+Didesain modern dengan dukungan **ES6**, **preset validasi umum**, dan **auto-format pintar**.
 
 ---
 
-## 📦 Instalasi
+## 🚀 Fitur Utama
 
-Tambahkan file plugin setelah **jQuery**:
+| Kategori | Fitur | Deskripsi |
+|-----------|--------|------------|
+| 🎯 Validasi | `preset: 'email' | 'phone' | 'url' | 'hex'` | Cek format input otomatis dengan regex bawaan. |
+| 🧮 Formatting | `autoFormat: 'phone' | 'card' | 'nik'` | Format input jadi rapi saat diketik. |
+| ✍️ Transformasi | `transform: 'upper' | 'lower' | 'capitalize'` | Ubah huruf otomatis. |
+| 📏 Panjang Input | `minlength`, `maxlength` | Batas karakter input. |
+| 🧩 Custom Allowed | `customAllowed: '@#_'` | Tambah karakter khusus yang diizinkan. |
+| 🧯 Blok Paste | `blockPaste: true` | Blokir paste untuk input sensitif (PIN, OTP). |
+| 🔐 Masking | `maskChar: '*'` | Sembunyikan tampilan input tapi simpan nilai asli. |
+| ⚡ Event | `ren:valid`, `ren:invalid`, `ren:formatted` | Event jQuery kustom untuk aksi lanjut. |
+| 🪵 Debug | `debug: true` | Log semua aktivitas ke console. |
 
-```html
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="jquery.RenInputRules.js"></script>
+---
+
+## 🧠 Instalasi
+
+```bash
+# via npm (opsional)
+npm install ren-input-rules
+
+# atau langsung include di HTML
+<script src="jquery.min.js"></script>
+<script src="RenInputRules.js"></script>
 ```
 
 ---
 
-## 🚀 Usage
+## 💻 Contoh Penggunaan
 
-Inisialisasi sederhana:
-
-```javascript
-$('input').RenInputRules();
-```
-
-Menggunakan konfigurasi:
-
-```javascript
-$('input').RenInputRules({
-  patnnumstat  : true,   // aktifkan pattern number pada input[type=number]
-  patntextstat : true    // aktifkan pattern text pada input[type=text]
+```js
+$('input#phone').RenInputRules({
+  preset: 'phone',
+  autoFormat: 'phone',
+  showError: true,
+  transform: 'none',
+  debug: true
 });
 ```
 
-Contoh di atas akan menambahkan attribute `pattern` otomatis pada input number dan text.
+### 💳 Format Kartu
+```js
+$('input#card').RenInputRules({
+  autoFormat: 'card',
+  maxlength: 19
+});
+```
 
----
-
-## ⚙️ Configuration
-
-Berikut daftar konfigurasi yang tersedia (dengan default value):
-
-```javascript
-{
-  patnnumstat   : false, // aktifkan pattern number
-  patntextstat  : false, // aktifkan pattern text
-
-  patnnum       : '^[0-9]*\.?[0-9]*$',      // regex pattern untuk angka (integer/decimal)
-  patntext      : '^[a-zA-Z0-9!/\.\-\s_]+$', // regex pattern untuk text
-
-  regexnum      : /[^0-9.]/g,                // hanya izinkan angka + titik
-  regexdef      : /[^a-zA-Z0-9().|\/!._\-\s]/g, // default allowed text
-  regexcustoms  : /[^a-zA-Z0-9.]/g           // untuk input dengan class easy-autocomplete
-}
+### 🔐 PIN Aman
+```js
+$('input.pin').RenInputRules({
+  autoFormat: 'none',
+  blockPaste: true,
+  maskChar: '*'
+});
 ```
 
 ---
 
-## 📝 Contoh Penggunaan
+## ⚙️ Daftar Opsi Lengkap
 
-### 1. Input Number
-```html
-<input type="number" id="price" placeholder="Only numbers">
-<script>
-  $('#price').RenInputRules({ patnnumstat: true });
-</script>
-```
+| Opsi | Default | Deskripsi |
+|------|----------|-----------|
+| `preset` | `'none'` | Validasi regex otomatis. |
+| `autoFormat` | `'none'` | Format tampilan input. |
+| `transform` | `'none'` | Ubah huruf otomatis. |
+| `customAllowed` | `''` | Karakter tambahan yang diizinkan. |
+| `blockPaste` | `false` | Blokir aksi paste. |
+| `maskChar` | `null` | Masking input. |
+| `minlength` | `null` | Panjang minimal. |
+| `maxlength` | `null` | Panjang maksimal. |
+| `showError` | `false` | Tampilkan tooltip error. |
+| `errorMessage` | `'Input tidak valid!'` | Pesan tooltip. |
+| `debug` | `false` | Mode debugging. |
 
-### 2. Input Text
-```html
-<input type="text" id="username" placeholder="Alphanumeric only">
-<script>
-  $('#username').RenInputRules({ patntextstat: true });
-</script>
-```
+---
 
-### 3. Input dengan EasyAutocomplete
-```html
-<input type="text" class="easy-autocomplete" id="search">
-<script>
-  $('#search').RenInputRules();
-</script>
+## 🧩 Event
+
+| Event | Kapan Terjadi | Parameter |
+|--------|----------------|------------|
+| `ren:cleaned` | Setelah input dibersihkan | `{ oldValue, newValue }` |
+| `ren:valid` | Input valid | `{ value }` |
+| `ren:invalid` | Input invalid | `{ value }` |
+| `ren:formatted` | Setelah auto-format | `{ formattedValue }` |
+| `ren:masked` | Setelah masking | `{ realValue, maskedValue }` |
+
+---
+
+## 🪄 Reset Plugin
+
+```js
+$('input').RenInputRulesReset();
 ```
 
 ---
 
-## 🔒 Fitur Utama
+## 🧩 Perbedaan `preset` vs `autoFormat`
 
-- Auto replace karakter invalid saat `input`, `keypress`, atau `keyup`
-- Support input `type="number"` (blokir leading zero untuk integer)
-- Support input text biasa dan dengan plugin **easy-autocomplete**
-- Bisa custom regex sesuai kebutuhan
-- Bisa menambahkan atribut `pattern` otomatis
+| Fitur | Tujuan | Contoh |
+|--------|---------|--------|
+| `preset` | Validasi isi input | `user@mail.com` ✅ / `user@mail` ❌ |
+| `autoFormat` | Format tampilan input | `081234567890` → `0812-3456-7890` |
+
+> 💡 **Gunakan keduanya bersama untuk hasil terbaik.**
 
 ---
 
-## 📄 Lisensi
-MIT License © 2025
+## 🧾 Lisensi
+
+MIT © 2025 RENPWN
+GitHub: [https://github.com/hardknockdays](https://github.com/hardknockdays)
