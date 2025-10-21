@@ -1,41 +1,41 @@
 
 # 🧩 jQuery RenInputRules v3 (ES6)
 
-Plugin jQuery ringan untuk validasi dan formatting input teks secara otomatis.  
-Didesain modern dengan dukungan **ES6**, **preset validasi umum**, dan **auto-format pintar**.
+A lightweight jQuery plugin for automatic text input validation and formatting.  
+Built with modern **ES6** standards, supporting **common validation presets** and **smart auto-formatting**.
 
 ---
 
-## 🚀 Fitur Utama
+## 🚀 Features
 
-| Kategori | Fitur | Deskripsi |
-|-----------|--------|------------|
-| 🎯 Validasi | `preset: 'email' | 'phone' | 'url' | 'hex'` | Cek format input otomatis dengan regex bawaan. |
-| 🧮 Formatting | `autoFormat: 'phone' | 'card' | 'nik'` | Format input jadi rapi saat diketik. |
-| ✍️ Transformasi | `transform: 'upper' | 'lower' | 'capitalize'` | Ubah huruf otomatis. |
-| 📏 Panjang Input | `minlength`, `maxlength` | Batas karakter input. |
-| 🧩 Custom Allowed | `customAllowed: '@#_'` | Tambah karakter khusus yang diizinkan. |
-| 🧯 Blok Paste | `blockPaste: true` | Blokir paste untuk input sensitif (PIN, OTP). |
-| 🔐 Masking | `maskChar: '*'` | Sembunyikan tampilan input tapi simpan nilai asli. |
-| ⚡ Event | `ren:valid`, `ren:invalid`, `ren:formatted` | Event jQuery kustom untuk aksi lanjut. |
-| 🪵 Debug | `debug: true` | Log semua aktivitas ke console. |
+| Category | Feature | Description |
+|-----------|----------|-------------|
+| 🎯 Validation | `preset: 'email' | 'phone' | 'url' | 'hex'` | Automatically validate input format using built-in regex. |
+| 🧮 Formatting | `autoFormat: 'phone' | 'card' | 'nik'` | Automatically format input while typing. |
+| ✍️ Transformation | `transform: 'upper' | 'lower' | 'capitalize'` | Auto convert text case. |
+| 📏 Input Length | `minlength`, `maxlength` | Restrict the number of characters allowed. |
+| 🧩 Custom Allowed | `customAllowed: '@#_'` | Add extra allowed characters. |
+| 🧯 Paste Blocking | `blockPaste: true` | Prevent pasting for sensitive fields (PIN, OTP). |
+| 🔐 Masking | `maskChar: '*'` | Hide input visually but store original value. |
+| ⚡ Events | `ren:valid`, `ren:invalid`, `ren:formatted` | Custom jQuery events for advanced handling. |
+| 🪵 Debug Mode | `debug: true` | Log all plugin actions in the console. |
 
 ---
 
-## 🧠 Instalasi
+## 🧠 Installation
 
 ```bash
-# via npm (opsional)
+# via npm (optional)
 npm install ren-input-rules
 
-# atau langsung include di HTML
+# or include directly in HTML
 <script src="jquery.min.js"></script>
 <script src="RenInputRules.js"></script>
 ```
 
 ---
 
-## 💻 Contoh Penggunaan
+## 💻 Example Usage
 
 ```js
 $('input#phone').RenInputRules({
@@ -47,7 +47,7 @@ $('input#phone').RenInputRules({
 });
 ```
 
-### 💳 Format Kartu
+### 💳 Credit Card Formatting
 ```js
 $('input#card').RenInputRules({
   autoFormat: 'card',
@@ -55,7 +55,7 @@ $('input#card').RenInputRules({
 });
 ```
 
-### 🔐 PIN Aman
+### 🔐 Secure PIN Input
 ```js
 $('input.pin').RenInputRules({
   autoFormat: 'none',
@@ -66,33 +66,33 @@ $('input.pin').RenInputRules({
 
 ---
 
-## ⚙️ Daftar Opsi Lengkap
+## ⚙️ Full Options
 
-| Opsi | Default | Deskripsi |
-|------|----------|-----------|
-| `preset` | `'none'` | Validasi regex otomatis. |
-| `autoFormat` | `'none'` | Format tampilan input. |
-| `transform` | `'none'` | Ubah huruf otomatis. |
-| `customAllowed` | `''` | Karakter tambahan yang diizinkan. |
-| `blockPaste` | `false` | Blokir aksi paste. |
-| `maskChar` | `null` | Masking input. |
-| `minlength` | `null` | Panjang minimal. |
-| `maxlength` | `null` | Panjang maksimal. |
-| `showError` | `false` | Tampilkan tooltip error. |
-| `errorMessage` | `'Input tidak valid!'` | Pesan tooltip. |
-| `debug` | `false` | Mode debugging. |
+| Option | Default | Description |
+|---------|----------|-------------|
+| `preset` | `'none'` | Enables built-in regex validation. |
+| `autoFormat` | `'none'` | Controls live input formatting. |
+| `transform` | `'none'` | Automatically change text case. |
+| `customAllowed` | `''` | Add extra characters to whitelist. |
+| `blockPaste` | `false` | Block paste action. |
+| `maskChar` | `null` | Mask input visually. |
+| `minlength` | `null` | Minimum input length. |
+| `maxlength` | `null` | Maximum input length. |
+| `showError` | `false` | Show tooltip error on invalid input. |
+| `errorMessage` | `'Invalid input!'` | Tooltip message. |
+| `debug` | `false` | Enable console debug logs. |
 
 ---
 
-## 🧩 Event
+## 🧩 Events
 
-| Event | Kapan Terjadi | Parameter |
-|--------|----------------|------------|
-| `ren:cleaned` | Setelah input dibersihkan | `{ oldValue, newValue }` |
-| `ren:valid` | Input valid | `{ value }` |
-| `ren:invalid` | Input invalid | `{ value }` |
-| `ren:formatted` | Setelah auto-format | `{ formattedValue }` |
-| `ren:masked` | Setelah masking | `{ realValue, maskedValue }` |
+| Event | Triggered When | Parameters |
+|--------|----------------|-------------|
+| `ren:cleaned` | After input sanitization | `{ oldValue, newValue }` |
+| `ren:valid` | Input becomes valid | `{ value }` |
+| `ren:invalid` | Input becomes invalid | `{ value }` |
+| `ren:formatted` | After auto-format applied | `{ formattedValue }` |
+| `ren:masked` | After masking applied | `{ realValue, maskedValue }` |
 
 ---
 
@@ -104,18 +104,18 @@ $('input').RenInputRulesReset();
 
 ---
 
-## 🧩 Perbedaan `preset` vs `autoFormat`
+## 🧩 Difference between `preset` and `autoFormat`
 
-| Fitur | Tujuan | Contoh |
-|--------|---------|--------|
-| `preset` | Validasi isi input | `user@mail.com` ✅ / `user@mail` ❌ |
-| `autoFormat` | Format tampilan input | `081234567890` → `0812-3456-7890` |
+| Feature | Purpose | Example |
+|----------|----------|----------|
+| `preset` | Validates the **content** | `user@mail.com` ✅ / `user@mail` ❌ |
+| `autoFormat` | Formats the **visual appearance** | `081234567890` → `0812-3456-7890` |
 
-> 💡 **Gunakan keduanya bersama untuk hasil terbaik.**
+> 💡 **Combine both for maximum accuracy and better UX.**
 
 ---
 
-## 🧾 Lisensi
+## 🧾 License
 
-MIT © 2025 RENPWN
+MIT © 2025 RENPWN  
 GitHub: [https://github.com/hardknockdays](https://github.com/hardknockdays)
