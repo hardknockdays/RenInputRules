@@ -1,44 +1,45 @@
+# 🧩 RenInputRules v3 (Vanilla JS + jQuery Compatible)
 
-# 🧩 jQuery RenInputRules v3 (ES6)
-
-A lightweight jQuery plugin for automatic text input validation and formatting.  
-Built with modern **ES6** standards, supporting **common validation presets** and **smart auto-formatting**.
+A lightweight **input validation and formatting plugin**, rewritten in **pure ES6 JavaScript** — no jQuery required.  
+You can still use it with jQuery for backward compatibility.
 
 ---
 
-## 🚀 Features
+## 🚀 Features Overview
 
 | Category | Feature | Description |
 |-----------|----------|-------------|
-| 🎯 Validation | `preset: 'email' | 'phone' | 'url' | 'hex'` | Automatically validate input format using built-in regex. |
-| 🧮 Formatting | `autoFormat: 'phone' | 'card' | 'nik'` | Automatically format input while typing. |
-| ✍️ Transformation | `transform: 'upper' | 'lower' | 'capitalize'` | Auto convert text case. |
-| 📏 Input Length | `minlength`, `maxlength` | Restrict the number of characters allowed. |
+| 🎯 Validation | `preset: 'email' | 'phone' | 'url' | 'hex'` | Built-in regex validation for common input types. |
+| 🧮 Auto Formatting | `autoFormat: 'phone' | 'card' | 'nik'` | Automatically formats the input while typing. |
+| ✍️ Transformation | `transform: 'upper' | 'lower' | 'capitalize'` | Automatically changes case of input text. |
+| 📏 Input Length | `minlength`, `maxlength` | Control input character limits. |
 | 🧩 Custom Allowed | `customAllowed: '@#_'` | Add extra allowed characters. |
-| 🧯 Paste Blocking | `blockPaste: true` | Prevent pasting for sensitive fields (PIN, OTP). |
-| 🔐 Masking | `maskChar: '*'` | Hide input visually but store original value. |
-| ⚡ Events | `ren:valid`, `ren:invalid`, `ren:formatted` | Custom jQuery events for advanced handling. |
-| 🪵 Debug Mode | `debug: true` | Log all plugin actions in the console. |
+| 🧯 Block Paste | `blockPaste: true` | Prevent pasting for sensitive fields (PIN, OTP). |
+| 🔐 Masking | `maskChar: '*'` | Mask displayed input while keeping real value. |
+| ⚡ Custom Events | `ren:valid`, `ren:invalid`, `ren:formatted` | Dispatch native DOM events for external logic. |
+| 🪵 Debug Mode | `debug: true` | Log all plugin actions in console. |
 
 ---
 
 ## 🧠 Installation
 
+### 1️⃣ Using npm
 ```bash
-# via npm (optional)
 npm install ren-input-rules
+```
 
-# or include directly in HTML
-<script src="jquery.min.js"></script>
+### 2️⃣ Or via CDN / Manual include
+```html
 <script src="RenInputRules.js"></script>
 ```
 
 ---
 
-## 💻 Example Usage
+## 💻 Usage Example
 
+### 📱 Phone Input
 ```js
-$('input#phone').RenInputRules({
+new RenInputRules('#phone', {
   preset: 'phone',
   autoFormat: 'phone',
   showError: true,
@@ -47,17 +48,17 @@ $('input#phone').RenInputRules({
 });
 ```
 
-### 💳 Credit Card Formatting
+### 💳 Card Number
 ```js
-$('input#card').RenInputRules({
+new RenInputRules('#card', {
   autoFormat: 'card',
   maxlength: 19
 });
 ```
 
-### 🔐 Secure PIN Input
+### 🔐 Secure PIN
 ```js
-$('input.pin').RenInputRules({
+new RenInputRules('.pin', {
   autoFormat: 'none',
   blockPaste: true,
   maskChar: '*'
@@ -66,52 +67,52 @@ $('input.pin').RenInputRules({
 
 ---
 
-## ⚙️ Full Options
+## ⚙️ Full Options Reference
 
 | Option | Default | Description |
-|---------|----------|-------------|
-| `preset` | `'none'` | Enables built-in regex validation. |
-| `autoFormat` | `'none'` | Controls live input formatting. |
-| `transform` | `'none'` | Automatically change text case. |
-| `customAllowed` | `''` | Add extra characters to whitelist. |
-| `blockPaste` | `false` | Block paste action. |
-| `maskChar` | `null` | Mask input visually. |
+|--------|----------|-------------|
+| `preset` | `'none'` | Regex-based validation preset. |
+| `autoFormat` | `'none'` | Real-time formatting style. |
+| `transform` | `'none'` | Text transform mode. |
+| `customAllowed` | `''` | Extra allowed characters. |
+| `blockPaste` | `false` | Disable paste action. |
+| `maskChar` | `null` | Mask visible input. |
 | `minlength` | `null` | Minimum input length. |
 | `maxlength` | `null` | Maximum input length. |
-| `showError` | `false` | Show tooltip error on invalid input. |
-| `errorMessage` | `'Invalid input!'` | Tooltip message. |
-| `debug` | `false` | Enable console debug logs. |
+| `showError` | `false` | Show tooltip error message. |
+| `errorMessage` | `'Invalid input!'` | Error message text. |
+| `debug` | `false` | Enable debug console logs. |
 
 ---
 
-## 🧩 Events
+## 🧩 Custom Events
 
-| Event | Triggered When | Parameters |
-|--------|----------------|-------------|
-| `ren:cleaned` | After input sanitization | `{ oldValue, newValue }` |
-| `ren:valid` | Input becomes valid | `{ value }` |
-| `ren:invalid` | Input becomes invalid | `{ value }` |
-| `ren:formatted` | After auto-format applied | `{ formattedValue }` |
-| `ren:masked` | After masking applied | `{ realValue, maskedValue }` |
+| Event | Trigger | Payload |
+|--------|----------|----------|
+| `ren:cleaned` | After input is cleaned | `{ oldValue, newValue }` |
+| `ren:valid` | Input passes validation | `{ value }` |
+| `ren:invalid` | Input fails validation | `{ value }` |
+| `ren:formatted` | After auto-format | `{ formattedValue }` |
+| `ren:masked` | After masking | `{ realValue, maskedValue }` |
 
 ---
 
-## 🪄 Reset Plugin
+## 🧩 Reset Plugin
 
 ```js
-$('input').RenInputRulesReset();
+RenInputRules.reset('#phone');
 ```
 
 ---
 
-## 🧩 Difference between `preset` and `autoFormat`
+## ⚖️ Difference Between `preset` and `autoFormat`
 
 | Feature | Purpose | Example |
 |----------|----------|----------|
-| `preset` | Validates the **content** | `user@mail.com` ✅ / `user@mail` ❌ |
-| `autoFormat` | Formats the **visual appearance** | `081234567890` → `0812-3456-7890` |
+| `preset` | Validates input content | `user@mail.com` ✅ / `user@mail` ❌ |
+| `autoFormat` | Adjusts how text appears while typing | `081234567890` → `0812-3456-7890` |
 
-> 💡 **Combine both for maximum accuracy and better UX.**
+> 💡 Combine both for best UX.
 
 ---
 
